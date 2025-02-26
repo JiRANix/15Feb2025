@@ -1,14 +1,7 @@
 <form class="form-default" role="form" action="{{ route('addresses.update', $address_data->id) }}" method="POST">
     @csrf
     <div class="p-3">
-        <div class="row">
-            <div class="col-md-2">
-                <label>{{ translate('Address')}}</label>
-            </div>
-            <div class="col-md-10">
-                <textarea class="form-control mb-3" placeholder="{{ translate('Your Address')}}" rows="2" name="address" required>{{ $address_data->address }}</textarea>
-            </div>
-        </div>
+
         <div class="row">
             <div class="col-md-2">
                 <label>{{ translate('Country')}}</label>
@@ -32,11 +25,11 @@
                 <label>{{ translate('County')}}</label>
             </div>
             <div class="col-md-10">
-                <select class="form-control mb-3 aiz-selectpicker" name="state_id" id="edit_state"  data-live-search="true" required>
+                <select class="form-control mb-3 aiz-selectpicker" name="state_id" id="edit_state" data-live-search="true" required>
                     @foreach ($states as $key => $state)
-                        <option value="{{ $state->id }}" @if($address_data->state_id == $state->id) selected @endif>
-                            {{ $state->name }}
-                        </option>
+                    <option value="{{ $state->id }}" @if($address_data->state_id == $state->id) selected @endif>
+                        {{ $state->name }}
+                    </option>
                     @endforeach
                 </select>
             </div>
@@ -49,14 +42,21 @@
             <div class="col-md-10">
                 <select class="form-control mb-3 aiz-selectpicker" data-live-search="true" name="city_id" required>
                     @foreach ($cities as $key => $city)
-                        <option value="{{ $city->id }}" @if($address_data->city_id == $city->id) selected @endif>
-                            {{ $city->name }}
-                        </option>
+                    <option value="{{ $city->id }}" @if($address_data->city_id == $city->id) selected @endif>
+                        {{ $city->name }}
+                    </option>
                     @endforeach
                 </select>
             </div>
         </div>
-        
+        <div class="row">
+            <div class="col-md-2">
+                <label>{{ translate('Address')}}</label>
+            </div>
+            <div class="col-md-10">
+                <textarea class="form-control mb-3" placeholder="{{ translate('Your Address')}}" rows="2" name="address" required>{{ $address_data->address }}</textarea>
+            </div>
+        </div>
         <!-- @if (get_setting('google_map') == 1)
             <div class="row">
                 <input id="edit_searchInput" class="controls" type="text" placeholder="Enter a location">
@@ -96,16 +96,50 @@
                 <input type="text" class="form-control mb-3" placeholder="{{ translate('Your Postal Code')}}" value="{{ $address_data->postal_code }}" name="postal_code" value="" required>
             </div>
         </div> -->
-        <div class="row">
-            <div class="col-md-2">
-                <label>{{ translate('Phone Number')}}</label>
-            </div>
-            <div class="col-md-10">
-                <input type="text" class="form-control mb-3" placeholder="{{ translate('+880')}}" value="{{ $address_data->phone }}" name="phone" value="" required>
-            </div>
+
+        <div class="form-group phone-form-group mb-1">
+            <input type="tel" id="phone-code" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" value="{{ $address_data->phone }}" placeholder="" name="phone" autocomplete="off">
         </div>
+
+        <input type="hidden" name="country_code" value="">
         <div class="form-group text-right">
             <button type="submit" class="btn btn-sm btn-primary">{{translate('Save')}}</button>
         </div>
     </div>
 </form>
+
+
+<script type="text/javascript">
+    var isPhoneShown = true,
+        countryData = window.intlTelInputGlobals.getCountryData(),
+        input = document.querySelector("#phone-code");
+    console.log(JSON.stringify(countryData));
+    for (var i = 0; i < countryData.length; i++) {
+        var country = countryData[i];
+        if (country.iso2 == 'bd') {
+            country.dialCode = '88';
+        }
+    }
+
+    var iti = intlTelInput(input, {
+        separateDialCode: true,
+        utilsScript: "{{ static_asset('assets/js/intlTelutils.js') }}?1590403638580",
+        customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
+            if (selectedCountryData.iso2 == 'bd') {
+                return "01xxxxxxxxx";
+            }
+            return selectedCountryPlaceholder;
+        }
+    });
+
+    var country = iti.getSelectedCountryData();
+    $('input[name=country_code]').val(country.dialCode);
+
+    input.addEventListener("countrychange", function(e) {
+        // var currentMask = e.currentTarget.placeholder;
+
+        var country = iti.getSelectedCountryData();
+        $('input[name=country_code]').val(country.dialCode);
+
+    });
+</script>

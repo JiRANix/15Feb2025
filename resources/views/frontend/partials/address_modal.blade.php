@@ -11,14 +11,7 @@
                 @csrf
                 <div class="modal-body">
                     <div class="p-3">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label>{{ translate('Address')}}</label>
-                            </div>
-                            <div class="col-md-10">
-                                <textarea class="form-control mb-3" placeholder="{{ translate('Your Address')}}" rows="2" name="address" required></textarea>
-                            </div>
-                        </div>
+
                         <div class="row">
                             <div class="col-md-2">
                                 <label>{{ translate('Country')}}</label>
@@ -87,16 +80,20 @@
                             </div>
                         </div>
                         @endif -->
-
-                        
                         <div class="row">
                             <div class="col-md-2">
-                                <label>{{ translate('Phone Number')}}</label>
+                                <label>{{ translate('Location')}}</label>
                             </div>
                             <div class="col-md-10">
-                                <input type="text" class="form-control mb-3" placeholder="{{ translate('+880')}}" name="phone" value="" required>
+                                <textarea class="form-control mb-3" placeholder="{{ translate('Your Address')}}" rows="2" name="address" required></textarea>
                             </div>
                         </div>
+
+                        <div class="form-group phone-form-group mb-1">
+                            <input type="tel" id="phone-code" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" value="{{ old('phone') }}" placeholder="" name="phone" autocomplete="off">
+                        </div>
+
+                        <input type="hidden" name="country_code" value="">
                         <div class="form-group text-right">
                             <button type="submit" class="btn btn-sm btn-primary">{{translate('Save')}}</button>
                         </div>
@@ -126,6 +123,39 @@
 
 @section('script')
 <script type="text/javascript">
+    var isPhoneShown = true,
+        countryData = window.intlTelInputGlobals.getCountryData(),
+        input = document.querySelector("#phone-code");
+
+    for (var i = 0; i < countryData.length; i++) {
+        var country = countryData[i];
+        if (country.iso2 == 'bd') {
+            country.dialCode = '88';
+        }
+    }
+
+    var iti = intlTelInput(input, {
+        separateDialCode: true,
+        utilsScript: "{{ static_asset('assets/js/intlTelutils.js') }}?1590403638580",
+        customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
+            if (selectedCountryData.iso2 == 'bd') {
+                return "01xxxxxxxxx";
+            }
+            return selectedCountryPlaceholder;
+        }
+    });
+
+    var country = iti.getSelectedCountryData();
+    $('input[name=country_code]').val(country.dialCode);
+
+    input.addEventListener("countrychange", function(e) {
+        // var currentMask = e.currentTarget.placeholder;
+
+        var country = iti.getSelectedCountryData();
+        $('input[name=country_code]').val(country.dialCode);
+
+    });
+
     function add_new_address() {
         $('#new-address-modal').modal('show');
     }
