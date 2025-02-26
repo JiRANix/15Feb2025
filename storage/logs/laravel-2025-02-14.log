@@ -1,0 +1,42 @@
+[2025-02-14 13:50:53] local.INFO: x1wq6qhikmB1GrDG87HRFpOapQ8q  
+[2025-02-14 13:50:54] local.INFO: {
+                    "requestId":"fe1e-4199-8a60-70ebcbfc601865993058",
+                    "errorCode": "400.002.02",
+                    "errorMessage": "Bad Request - Invalid PhoneNumber"
+                }
+              
+[2025-02-14 20:00:02] local.INFO: pkrtepZq0NHTEQrAjOzdgtEZGjHJ  
+[2025-02-14 20:00:03] local.INFO: {
+            "MerchantRequestID":"dda4-4a46-bf82-46626af48c9d4702396",
+            "CheckoutRequestID":"ws_CO_14022025200002845728814975",
+            "ResponseCode": "0",
+            "ResponseDescription":"Success. Request accepted for processing",
+            "CustomerMessage":"Success. Request accepted for processing"
+        }
+          
+[2025-02-14 20:00:20] local.ERROR: Declaration of Egulias\EmailValidator\Validation\MessageIDValidation::isValid(string $email, Egulias\EmailValidator\EmailLexer $emailLexer): bool must be compatible with Egulias\EmailValidator\Validation\EmailValidation::isValid($email, Egulias\EmailValidator\EmailLexer $emailLexer) {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Declaration of Egulias\\EmailValidator\\Validation\\MessageIDValidation::isValid(string $email, Egulias\\EmailValidator\\EmailLexer $emailLexer): bool must be compatible with Egulias\\EmailValidator\\Validation\\EmailValidation::isValid($email, Egulias\\EmailValidator\\EmailLexer $emailLexer) at /home/jiranim1/public_html/vendor/egulias/email-validator/src/Validation/MessageIDValidation.php:23)
+[stacktrace]
+#0 {main}
+"} 
+[2025-02-14 20:00:21] local.ERROR: Declaration of Egulias\EmailValidator\Validation\MessageIDValidation::isValid(string $email, Egulias\EmailValidator\EmailLexer $emailLexer): bool must be compatible with Egulias\EmailValidator\Validation\EmailValidation::isValid($email, Egulias\EmailValidator\EmailLexer $emailLexer) {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Declaration of Egulias\\EmailValidator\\Validation\\MessageIDValidation::isValid(string $email, Egulias\\EmailValidator\\EmailLexer $emailLexer): bool must be compatible with Egulias\\EmailValidator\\Validation\\EmailValidation::isValid($email, Egulias\\EmailValidator\\EmailLexer $emailLexer) at /home/jiranim1/public_html/vendor/egulias/email-validator/src/Validation/MessageIDValidation.php:23)
+[stacktrace]
+#0 {main}
+"} 
+[2025-02-14 20:35:18] local.INFO: Fi79zopRfvDALyalfPuHq4VkspS3  
+[2025-02-14 20:35:20] local.INFO: {
+            "MerchantRequestID":"4689-4e69-bed4-22d590e601c273095065",
+            "CheckoutRequestID":"ws_CO_14022025203519130758995042",
+            "ResponseCode": "0",
+            "ResponseDescription":"Success. Request accepted for processing",
+            "CustomerMessage":"Success. Request accepted for processing"
+        }
+          
+[2025-02-14 20:41:37] local.INFO: Znbau1v29PLYM9LyiUlRRVRvzSVi  
+[2025-02-14 20:41:42] local.INFO: {
+            "MerchantRequestID":"d006-4f8a-968d-632933b424e627994175",
+            "CheckoutRequestID":"ws_CO_14022025204137802758995042",
+            "ResponseCode": "0",
+            "ResponseDescription":"Success. Request accepted for processing",
+            "CustomerMessage":"Success. Request accepted for processing"
+        }
+          
